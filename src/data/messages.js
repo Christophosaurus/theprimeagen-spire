@@ -1,15 +1,18 @@
 export const BIRTHDAY_MESSAGES = [
     {
         from: "codegirl007",
-        message: `Happy birthday Prime! Can’t believe I kept this domain from your last birthday and renewed it for another year. But here we are. Haha.
+        message: `Happy birthday Prime! Can’t believe I kept this domain from your last birthday and renewed it for another year. No AI singing in this one but it does contain a lot more love and fun (I hope). I know it'd be a lot more normal if I just sent a birthday card or something but... whatever. It's more fun this way.
 
-I hope you have a good birthday with your family and friends. Thanks for all the good times we've had on your stream, in real life, at events. All of it has meant a lot to me and I'm very grateful.
+This game is my way of celebrating you. You've had an extra rough past several months so all the effort put into this was to hopefully lift your spirits and make you laugh. 
 
-Hope these messages can bring some happiness to you. The only goal of all this is to just make you smile on your birthday. Tears of happiness are also acceptable.
+I hope to be able to do silly projects like this for years to come. They're fun to do and you deserve it. Enjoy the messages that follow.
 
 Stephanie (Codegirl)
 
-P.S. Sorry for the bugs (if there are any)`
+
+P.S. Sorry for the bugs (if there are any). Also sorry I didn't alphabetize this.
+
+P.P.S. I don't know who wrote Elon Musk message. I highly suspect it was Warren.`
     },
     {
         from: "nilpointerr",
@@ -215,6 +218,38 @@ Wishing you speed, happiness, and all the best commits for your next trip around
     {
         from: "Defyus",
         message: "Happy birthday, hope the next year brings lots of abundance, success, and joy. Keep on, oning. get it. many great wishes!"
+    },
+    {
+        from: "footlong (you know Stanley 12\" already)",
+        message: "I appreciate your candor and enthusiasm. It's a bright spot in all in of this madness. You do indicate and show to simple folks how to get there, and most importantly what's a worthy objective in terms of personal development and career ofc. You're not alone !"
+    },
+    {
+        from: "Dan Vail",
+        message: "Prime, despite everything we’ve been through, I still love you very much and will genuinely support you to the ends of the Earth. You’re a good man doing his best in a world that needs more people like you - kind, caring, and goofy. I’m honored to consider us friends and I hope the next year of your life is even more blessed than this past one has been. I love you, brother."
+    },
+    {
+        from: "DHH",
+        message: "Another year, another surge in developer sanity, thanks partly to your amazing advocacy for first-principles thinking, not taking yourself too seriously, and inviting so many people to level up their skills in programming, Linux, VIM, and elsewhere. Enjoy the day, friend! ✌️"
+    },
+    {
+        from: "AdamCYounis",
+        message: "Happy are we to celebrate the birth of his excellency, the King of Mordoria! Happy Birthday, Prime!"
+    },
+    {
+        from: "ZeForener (Ellie)",
+        message: "May the Lord guide you according to His perfect will for your life, may He grant you strength through every challenge, shield you & your family from every attack of the enemy, bestow abundant blessings on you, and may you continue to remain obedient to His word & reflect His love in all that you do. Love you (in Christ, of course - not about to fight the Mrs. 🏳️)! Happy birthday!!!"
+    },
+    {
+        from: "programming.jesus",
+        message: "They grow up so fast. Alles Gute zum Geburtstag!"
+    },
+    {
+        from: "sushy",
+        message: "why are you not using nix"
+    },
+    {
+        from: "bigdumbape",
+        message: "Happy Birthday prime. Keep doing what you do...you are the positive influence we need these days. I wish you all the best."
     }
 ];
 
