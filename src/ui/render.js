@@ -1064,7 +1064,7 @@ export function renderRelicSelection(root) {
                     </text>
                   </svg>
                 </div>
-                    <p>Welcome, Prime, to ThePrimeagen Spire — a tower that rises once a year in your honor. At its base, the climb begins with a choice of relics, each shaping the path ahead. And know this: messages await in your Inbox, ready to be read before the journey begins.</p>
+                    <p class="welcome-message">Welcome, Prime, to ThePrimeagen Spire — a tower that rises once a year in your honor. At its base, the climb begins with a choice of relics, each shaping the path ahead. And know this: messages await in your Inbox, ready to be read before the journey begins.</p>
                 <h1>Choose a Starting Relic</h1>
                 <p>Select one of the following relics to begin your run.</p>
               </div>
@@ -1120,12 +1120,12 @@ export function renderEvent(root) {
                     risk: "high",
                     effect: () => {
                         const oldHp = root.player.hp;
-                        
+
                         root.player.hp += 15;
                         if (root.player.hp > root.player.maxHp) {
                             root.player.maxHp = root.player.hp;
                         }
-                        
+
                         root.player.deck.push("sugar_crash");
                         root.log(`Ate cake: +15 HP (${oldHp} → ${root.player.hp}), added Sugar Crash curse`);
                     }
@@ -1138,8 +1138,8 @@ export function renderEvent(root) {
                     effect: () => {
                         root.player.maxHp += 8;
                         if (root.player.hp > root.player.maxHp) {
-                          root.player.maxHp = root.player.hp;
-                      }
+                            root.player.maxHp = root.player.hp;
+                        }
                         root.log("Small bite: +8 HP");
                     }
                 },
@@ -1248,7 +1248,7 @@ export function renderEvent(root) {
     ];
 
     const event = events[Math.floor(Math.random() * events.length)];
-    
+
     // Store the current event so other systems can access it
     root.currentEvent = event;
 
