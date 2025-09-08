@@ -743,7 +743,7 @@ export function renderUpgrade(root) {
         root.app.innerHTML = `
         <div class="upgrade-screen">
           <div class="upgrade-header">
-        <h1>⬆️ Upgrade a Card</h1>
+        <h1>Upgrade a Card</h1>
             <p>Select a card from your deck to permanently improve it</p>
           </div>
           

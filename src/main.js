@@ -113,7 +113,7 @@ const root = {
     },
 
     async onWin() {
-        this.log("Enemy defeated! 🎉");
+        this.log("Enemy defeated!");
 
         const goldReward = Math.floor(Math.random() * 20) + 15; // 15-35 gold
         this.player.gold = (this.player.gold || 0) + goldReward;
@@ -134,7 +134,7 @@ const root = {
                 this.map = MAPS[nextAct];
                 this.nodeId = this.map.nodes.find(n => n.kind === "start").id;
                 this.completedNodes = [];
-                this.log(`🎉 Act ${this.currentAct === "act2" ? "II" : "I"} Complete! Advancing to the next challenge...`);
+                this.log(`Act ${this.currentAct === "act2" ? "II" : "I"} Complete! Advancing to the next challenge...`);
                 
                 // Save Act 2 checkpoint when first reaching it
                 if (nextAct === "act2") {
@@ -218,7 +218,7 @@ const root = {
                 timestamp: Date.now()
             };
             localStorage.setItem('birthday-spire-act2-checkpoint', JSON.stringify(checkpointData));
-            this.log("🎯 Act 2 checkpoint saved!");
+            this.log("Act 2 checkpoint saved!");
         } catch (e) {
             console.warn('Failed to save Act 2 checkpoint:', e);
         }
@@ -240,7 +240,7 @@ const root = {
                 this.relicStates = data.relicStates || [];
                 this._battleInProgress = false;
                 
-                this.log("🎯 Restarting from Act 2 checkpoint...");
+                this.log("Restarting from Act 2 checkpoint...");
                 return true;
             }
             return false;
