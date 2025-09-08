@@ -282,7 +282,13 @@ export function makeBattleContext(root) {
 }
 
 export function attachRelics(root, relicIds) {
-    root.relicStates = relicIds.map(id => ({ id, hooks: RELICS[id].hooks || {}, state: structuredClone(RELICS[id].state || {}) }));
+    root.relicStates = relicIds.filter(id => {
+        if (!RELICS[id]) {
+            console.error(`Relic with ID '${id}' not found in RELICS data`);
+            return false;
+        }
+        return true;
+    }).map(id => ({ id, hooks: RELICS[id].hooks || {}, state: structuredClone(RELICS[id].state || {}) }));
 
     const relicCtx = { 
         ...root, 
