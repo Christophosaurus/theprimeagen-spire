@@ -446,7 +446,7 @@ function setupMockData() {
     root.player.draw = ['defend', 'segfault'];
     root.player.discard = ['virgin'];
 
-    attachRelics(root, ['coffee_thermos', 'cpp_compiler']);
+    attachRelics(root, ['terminal_coffee_thermos', 'haskell']);
 
     // Test Act 2 if ?act2=true is in URL
     const urlParams = new URLSearchParams(window.location.search);
