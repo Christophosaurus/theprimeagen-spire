@@ -201,8 +201,8 @@ h3 {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    width: 500px;
-    height: 200px;
+    width: 400px;
+    height: 250px;
     background: linear-gradient(135deg, rgba(42, 42, 58, 0.4) 0%, rgba(26, 26, 42, 0.4) 100%);
     border: 2px solid #3a3a4a;
     border-radius: 8px;
@@ -563,7 +563,7 @@ h3 {
 
 .enemy-battle-zone {
     position: absolute;
-    top: 490px;
+    top: 390px;
     right: 80px;
     display: flex;
     justify-content: flex-end;
@@ -574,7 +574,7 @@ h3 {
 
 .player-battle-zone {
     position: absolute;
-    top: 490px;
+    top: 390px;
     left: 80px;
     display: flex;
     justify-content: flex-start;
@@ -1524,7 +1524,7 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    padding: 0;
+    margin-left: 160px;
     min-height: 200px;
     position: relative;
     overflow: visible;
