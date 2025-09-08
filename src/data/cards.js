@@ -368,7 +368,7 @@ export const CARDS = {
 export const STARTER_DECK = [
     "strike", "strike", "defend", "defend",
     "segfault", "coffee_rush", "skill_issue", "git_commit",
-    "stack_trace", "stack_trace", "git_push_force", "code_review"
+    "stack_trace", "stack_trace"
 ];
 
 export const CARD_POOL = [
