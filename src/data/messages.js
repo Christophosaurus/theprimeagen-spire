@@ -279,6 +279,11 @@ PS: go back to write some Go thanks`
     {
         from: "Ginger Bill",
         message: "Happy Birthday Prime! I hope you have a wonderful day."
+    },
+    {
+        from: "Luc",
+        message: `happy birthday brother. stay true to yourself, and to the mission. you are loved, and your impact is Immeasurable.
+\"And let us not grow weary of doing good, for in due season we will reap, if we do not give up.\"— Galatians 6:9`
     }
 ];
 
