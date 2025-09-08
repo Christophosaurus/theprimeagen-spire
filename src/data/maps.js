@@ -1,6 +1,6 @@
 export const MAPS = {
     act1: {
-        id: "act1", name: "Birthday Spire — Act I",
+        id: "act1", name: "The degens",
         nodes: [
             { id: "n1", kind: "start", next: ["n2", "n3"], x: 500, y: 760 },
             { id: "n2", kind: "battle", enemy: "old_man_judo", next: ["n4"], x: 350, y: 695 },
@@ -19,7 +19,7 @@ export const MAPS = {
         ]
     },
     act2: {
-        id: "act2", name: "Birthday Spire — Act II: The Corporate Ladder",
+        id: "act2", name: "Ackshual professionals",
         nodes: [
             { id: "a2n1", kind: "start", next: ["a2n2", "a2n3"], x: 500, y: 760 },
             { id: "a2n2", kind: "battle", enemy: "teej", next: ["a2n5"], x: 350, y: 695 },
