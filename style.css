@@ -1733,8 +1733,57 @@ h3 {
 }
 
 
-.battle-card.playable:hover {
-    transform: translateY(0px) scale(1.05) rotate(0deg) !important;
+.battle-card:nth-child(1).playable:hover {
+    transform: translateY(-80px) scale(1.15) rotate(-8deg) !important;
+    z-index: 900;
+    margin-left: -60px;
+    margin-right: 40px;
+}
+
+.battle-card:nth-child(2).playable:hover {
+    transform: translateY(-80px) scale(1.15) rotate(-4deg) !important;
+    z-index: 900;
+    margin-left: -60px;
+    margin-right: 40px;
+}
+
+.battle-card:nth-child(3).playable:hover {
+    transform: translateY(-80px) scale(1.15) rotate(-2deg) !important;
+    z-index: 900;
+    margin-left: -60px;
+    margin-right: 40px;
+}
+
+.battle-card:nth-child(4).playable:hover {
+    transform: translateY(-80px) scale(1.15) rotate(0deg) !important;
+    z-index: 900;
+    margin-left: -60px;
+    margin-right: 40px;
+}
+
+.battle-card:nth-child(5).playable:hover {
+    transform: translateY(-80px) scale(1.15) rotate(2deg) !important;
+    z-index: 900;
+    margin-left: -60px;
+    margin-right: 40px;
+}
+
+.battle-card:nth-child(6).playable:hover {
+    transform: translateY(-80px) scale(1.15) rotate(4deg) !important;
+    z-index: 900;
+    margin-left: -60px;
+    margin-right: 40px;
+}
+
+.battle-card:nth-child(7).playable:hover {
+    transform: translateY(-80px) scale(1.15) rotate(8deg) !important;
+    z-index: 900;
+    margin-left: -60px;
+    margin-right: 40px;
+}
+
+.battle-card:nth-child(n+8).playable:hover {
+    transform: translateY(-80px) scale(1.15) rotate(12deg) !important;
     z-index: 900;
     margin-left: -60px;
     margin-right: 40px;
