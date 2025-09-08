@@ -255,15 +255,31 @@ Wishing you speed, happiness, and all the best commits for your next trip around
         from: "CallMeMrYogurt",
         message: `Happy Birthday, Prime! 🎉
 
-        Carl Sagan once said: “Look again at that dot.That’s home.That’s us.”
+Carl Sagan once said: “Look again at that dot.That’s home.That’s us.”
 
-        But honestly, if you zoom in far enough, you’ll probably just find you yelling at TypeScript, teaching us Vim tricks, and reminding us that for(let i = 0; i<n; i++) is the true circle of life.
+But honestly, if you zoom in far enough, you’ll probably just find you yelling at TypeScript, teaching us Vim tricks, and reminding us that for(let i = 0; i\&lt;n; i++) is the true circle of life.
 
 Thanks for being a role model, an educator, and proof that even in the vast universe… there’s always room for one more dad joke.
 
 May your code always compile, your tests always pass, and your coffee never run out. ☕💙`
+    },
+    {
+        from: "knox",
+        message: `Happy Birthday Mr. Prime and I wish you an amazing day full of health for you and your family. 
+PS: go back to write some Go thanks`
+    },
+    {
+        from: "cmgriffing",
+        message: `Happy Birthday! As a philosopher once said, "Life moves pretty fast. If you don't stop and look around once in a while, you could miss it".`
+    },
+    {
+        from: "beastco",
+        message: "Still love my tiny handed ID10T!! Happy birthday."
+    },
+    {
+        from: "Ginger Bill",
+        message: "Happy Birthday Prime! I hope you have a wonderful day."
     }
-
 ];
 
 // Simple helper function to get all messages
