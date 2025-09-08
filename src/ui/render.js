@@ -290,6 +290,7 @@ export async function renderMap(root) {
     const { ENEMIES } = await import("../data/enemies.js");
     const { RELICS } = await import("../data/relics.js");
     const { getAllMessages } = await import("../data/messages.js");
+    const { MAPS } = await import("../data/maps.js");
     const m = root.map;
     const currentId = root.nodeId;
 
@@ -462,12 +463,12 @@ But cake lies ahead at the top of the Spire. </p>
             <div class="act-progress-bar">
               <div class="act-step ${root.currentAct === 'act1' ? 'current' : 'completed'}">
                 <div class="act-number">Act I</div>
-                <div class="act-name">I'm doing a startup!</div>
+                <div class="act-name">${MAPS.act1?.name || 'Act I'}</div>
               </div>
               <div class="act-connector ${root.currentAct === 'act2' ? 'active' : ''}"></div>
               <div class="act-step ${root.currentAct === 'act2' ? 'current' : root.currentAct === 'act1' ? 'locked' : 'completed'}">
                 <div class="act-number">Act II</div>
-                <div class="act-name">Look dad, we made it!</div>
+                <div class="act-name">${MAPS.act2?.name || 'Act II'}</div>
               </div>
             </div>
           </div>
@@ -1069,6 +1070,7 @@ export function renderRelicSelection(root) {
                     </text>
                   </svg>
                 </div>
+                    <p>Welcome, Prime, to ThePrimeagen Spire — a tower that rises once a year in your honor. At its base, the climb begins with a choice of relics, each shaping the path ahead. And know this: messages await in your Inbox, ready to be read before the journey begins.</p>
                 <h1>Choose a Starting Relic</h1>
                 <p>Select one of the following relics to begin your run.</p>
               </div>
