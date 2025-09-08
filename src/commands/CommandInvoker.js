@@ -27,7 +27,6 @@ export class CommandInvoker {
                 }
                 
                 command.executed = true;
-                console.log(`Executed: ${command.getDescription()}`);
             }
             
             return success;

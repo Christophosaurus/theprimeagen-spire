@@ -7,6 +7,15 @@ import { createBattle, startPlayerTurn, playCard, endTurn, makeBattleContext, at
 import { renderBattle, renderMap, renderReward, renderRest, renderShop, renderWin, renderLose, renderEvent, renderRelicSelection, renderUpgrade, updateCardSelection, showDamageNumber, renderCodeReviewSelection } from "./ui/render.js";
 import { InputManager } from "./input/InputManager.js";
 import { CommandInvoker } from "./commands/CommandInvoker.js";
+import { GameStateMachine } from "./engine/GameStateMachine.js";
+import { MapState } from "./engine/states/MapState.js";
+import { BattleState } from "./engine/states/BattleState.js";
+import { ShopState } from "./engine/states/ShopState.js";
+import { RestState } from "./engine/states/RestState.js";
+import { EventState } from "./engine/states/EventState.js";
+import { VictoryState } from "./engine/states/VictoryState.js";
+import { DefeatState } from "./engine/states/DefeatState.js";
+import { RelicSelectionState } from "./engine/states/RelicSelectionState.js";
 
 const app = document.getElementById("app");
 
@@ -20,6 +29,7 @@ const root = {
     enemy: null,
     inputManager: null, // Will be initialized later
     commandInvoker: new CommandInvoker(),
+    stateMachine: null, // Will be initialized below
     currentEvent: null, // For event handling
     currentShopCards: null, // For shop handling
     currentShopRelic: null, // For shop relic handling
@@ -27,7 +37,14 @@ const root = {
     _codeReviewCallback: null, // For code review completion
 
     log(m) { this.logs.push(m); this.logs = this.logs.slice(-200); },
-    async render() { await renderBattle(this); },
+    async render() { 
+        if (this.stateMachine) {
+            await this.stateMachine.render();
+        } else {
+            // Fallback for initialization
+            await renderBattle(this);
+        }
+    },
     play(i) { 
         const battleCtx = makeBattleContext(this);
         playCard(battleCtx, i); 
@@ -44,23 +61,17 @@ const root = {
         const node = this.map.nodes.find(n => n.id === nextId);
         if (!node) return;
 
+        // Use state machine for transitions
         if (node.kind === "battle" || node.kind === "elite" || node.kind === "boss") {
-
-            this._battleInProgress = true;
-            createBattle(this, node.enemy);
-            await renderBattle(this);
-        } else {
-
-            this.save();
-            if (node.kind === "rest") {
-                await renderRest(this);
-            } else if (node.kind === "shop") {
-                renderShop(this);
-            } else if (node.kind === "event") {
-                renderEvent(this);
-            } else if (node.kind === "start") {
-                await renderMap(this);
-            }
+            await this.stateMachine.setState('BATTLE');
+        } else if (node.kind === "rest") {
+            await this.stateMachine.setState('REST');
+        } else if (node.kind === "shop") {
+            await this.stateMachine.setState('SHOP');
+        } else if (node.kind === "event") {
+            await this.stateMachine.setState('EVENT');
+        } else if (node.kind === "start") {
+            await this.stateMachine.setState('MAP');
         }
     },
 
@@ -69,8 +80,8 @@ const root = {
             this.completedNodes.push(this.nodeId);
         }
 
-
         const node = this.map.nodes.find(n => n.id === this.nodeId);
+        
         if (node.kind === "battle" || node.kind === "elite") {
             const choices = pickCards(3);
             this._pendingChoices = choices;
@@ -78,10 +89,11 @@ const root = {
             return;
         }
         if (node.kind === "boss") {
-            await renderWin(this); return;
+            await this.stateMachine.setState('VICTORY');
+            return;
         }
 
-        await renderMap(this);
+        await this.stateMachine.setState('MAP');
     },
 
     async takeReward(idx) {
@@ -92,12 +104,12 @@ const root = {
         }
         this._pendingChoices = null;
         this.save();
-        await renderMap(this);
+        await this.stateMachine.setState('MAP');
     },
     async skipReward() {
         this._pendingChoices = null;
         this.save();
-        await renderMap(this);
+        await this.stateMachine.setState('MAP');
     },
 
     async onWin() {
@@ -111,9 +123,11 @@ const root = {
         this._battleInProgress = false;
 
         const node = this.map.nodes.find(n => n.id === this.nodeId);
+        
         if (node.kind === "boss") {
             // Check if there's a next act
             const nextAct = this.currentAct === "act1" ? "act2" : null;
+            
             if (nextAct && MAPS[nextAct]) {
                 // Advance to next act
                 this.currentAct = nextAct;
@@ -128,27 +142,27 @@ const root = {
                 }
                 
                 this.save();
-                await renderMap(this);
+                await this.stateMachine.setState('MAP');
             } else {
                 // Final victory
                 this.save(); // Save progress before clearing on victory
                 this.clearSave(); // Clear save on victory
-                await renderWin(this);
+                await this.stateMachine.setState('VICTORY');
             }
         }
         else {
             this.save();
-            this.afterNode();
+            await this.afterNode();
         }
     },
     async onLose() {
 
         this._battleInProgress = false;
         this.clearSave(); // Clear save on defeat
-        await renderLose(this);
+        await this.stateMachine.setState('DEFEAT');
     },
 
-    reset() {
+    async reset() {
         this.logs = [];
         this.player = makePlayer();
         initDeck(this.player);
@@ -157,13 +171,13 @@ const root = {
         this.nodeId = "n1";
         this.completedNodes = [];
 
-        renderRelicSelection(this);
+        await this.stateMachine.setState('RELIC_SELECTION');
     },
 
     async selectStartingRelic(relicId) {
         attachRelics(this, [relicId]);
         this.save();
-        await renderMap(this);
+        await this.stateMachine.setState('MAP');
     },
 
     save() {
@@ -176,6 +190,7 @@ const root = {
                 completedNodes: this.completedNodes,
                 logs: this.logs.slice(-50), // Keep last 50 logs
                 battleInProgress: this._battleInProgress || false,
+                stateMachine: this.stateMachine ? this.stateMachine.getSaveData() : null,
                 timestamp: Date.now()
             };
             localStorage.setItem('birthday-spire-save', JSON.stringify(saveData));
@@ -300,6 +315,11 @@ const root = {
                 this.logs = Array.isArray(data.logs) ? data.logs : [];
                 this._battleInProgress = Boolean(data.battleInProgress);
 
+                // Restore state machine state
+                if (data.stateMachine && this.stateMachine) {
+                    this.stateMachine.restoreFromSave(data.stateMachine);
+                }
+
                 this.restoreCardEffects();
 
                 this.log('Game loaded from save.');
@@ -342,6 +362,21 @@ const root = {
         localStorage.removeItem('birthday-spire-act2-checkpoint');
     }
 };
+
+// Initialize State Machine
+try {
+    root.stateMachine = new GameStateMachine(root);
+    root.stateMachine.registerState('MAP', new MapState());
+    root.stateMachine.registerState('BATTLE', new BattleState());
+    root.stateMachine.registerState('SHOP', new ShopState());
+    root.stateMachine.registerState('REST', new RestState());
+    root.stateMachine.registerState('EVENT', new EventState());
+    root.stateMachine.registerState('VICTORY', new VictoryState());
+    root.stateMachine.registerState('DEFEAT', new DefeatState());
+    root.stateMachine.registerState('RELIC_SELECTION', new RelicSelectionState());
+} catch (error) {
+    console.error('Error initializing state machine:', error);
+}
 
 function pickCards(n) {
     const ids = shuffle(CARD_POOL.slice()).slice(0, n);
@@ -394,29 +429,29 @@ async function initializeGame() {
         switch (screenParam.toLowerCase()) {
             case 'victory':
             case 'win':
-                await renderWin(root);
+                await root.stateMachine.setState('VICTORY');
                 return;
             case 'defeat':
             case 'lose':
-                await renderLose(root);
+                await root.stateMachine.setState('DEFEAT');
                 return;
             case 'map':
-                await renderMap(root);
+                await root.stateMachine.setState('MAP');
                 return;
             case 'shop':
-                renderShop(root);
+                await root.stateMachine.setState('SHOP');
                 return;
             case 'rest':
-                await renderRest(root);
+                await root.stateMachine.setState('REST');
                 return;
             case 'event':
-                renderEvent(root);
+                await root.stateMachine.setState('EVENT');
                 return;
             case 'battle':
-                root.go('n2'); // Battle node
+                root.go('n2'); // Battle node (uses state machine internally)
                 return;
             case 'upgrade':
-                await renderRest(root);
+                await root.stateMachine.setState('REST');
                 setTimeout(() => {
                     const upgradeBtn = root.app.querySelector("[data-act='upgrade']");
                     if (upgradeBtn) upgradeBtn.click();
@@ -424,7 +459,7 @@ async function initializeGame() {
                 return;
             case 'relic':
             case 'relics':
-                renderRelicSelection(root);
+                await root.stateMachine.setState('RELIC_SELECTION');
                 return;
             default:
                 console.warn(`Unknown screen: ${screenParam}. Loading normal game.`);
@@ -541,19 +576,23 @@ async function loadNormalGame() {
             } else {
                 // Battle state inconsistent, go to map
                 root._battleInProgress = false;
-                await renderMap(root);
+                await root.stateMachine.setState('MAP');
             }
         } else {
-            await renderMap(root);
+            await root.stateMachine.setState('MAP');
         }
     } else {
-        root.reset();
+        await root.reset();
     }
 }
 
 // Initialize InputManager
-root.inputManager = new InputManager(root);
-root.inputManager.initGlobalListeners();
+try {
+    root.inputManager = new InputManager(root);
+    root.inputManager.initGlobalListeners();
+} catch (error) {
+    console.error('Error initializing InputManager:', error);
+}
 
 // Make modules available globally for InputManager
 window.gameModules = {
@@ -561,5 +600,7 @@ window.gameModules = {
     render: { renderMap, renderUpgrade, updateCardSelection, renderCodeReviewSelection }
 };
 
-initializeGame();
+initializeGame().catch(error => {
+    console.error('Error during game initialization:', error);
+});
 

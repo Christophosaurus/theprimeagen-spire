@@ -191,9 +191,9 @@ export class EventHandler {
         // Reset button
         const resetBtn = this.root.app.querySelector("[data-reset]");
         if (resetBtn) {
-            this.on(resetBtn, "click", () => {
+            this.on(resetBtn, "click", async () => {
                 this.root.clearSave();
-                this.root.reset();
+                await this.root.reset();
             });
         }
 
@@ -330,19 +330,12 @@ export class EventHandler {
     setupEventEvents(event) {
         this.switchScreen('event');
 
-        this.root.app.querySelectorAll("[data-choice]").forEach(btn => {
-            this.on(btn, "click", () => {
-                const idx = parseInt(btn.dataset.choice, 10);
-                event.choices[idx].effect();
-                this.root.afterNode();
-            });
-        });
-
-        // Keyboard shortcuts for event choices
+        // Event choice handlers are managed by InputManager
+        // Just set up keyboard shortcuts here
         for (let i = 1; i <= event.choices.length; i++) {
-            this.addKeyHandler(i.toString(), () => {
+            this.addKeyHandler(i.toString(), async () => {
                 event.choices[i - 1].effect();
-                this.root.afterNode();
+                await this.root.afterNode();
             }, `Event Choice ${i}`);
         }
     }
@@ -388,7 +381,7 @@ export class EventHandler {
         const menuBtn = this.root.app.querySelector("[data-menu]");
 
         if (replayBtn) {
-            this.on(replayBtn, "click", () => this.root.reset());
+            this.on(replayBtn, "click", async () => await this.root.reset());
         }
 
         if (restartAct2Btn) {
@@ -403,7 +396,7 @@ export class EventHandler {
         }
 
         if (menuBtn) {
-            this.on(menuBtn, "click", () => this.root.reset());
+            this.on(menuBtn, "click", async () => await this.root.reset());
         }
 
         // Keyboard shortcuts

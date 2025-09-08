@@ -3,8 +3,6 @@
  * 
  * This class consolidates ALL event listeners from the render functions
  * into one place while maintaining exact same functionality.
- * 
- * Following Nystrom's Input Handling patterns from Game Programming Patterns
  */
 
 import { PlayCardCommand } from '../commands/PlayCardCommand.js';
@@ -220,12 +218,13 @@ export class InputManager {
     /**
      * Handle event choice clicks
      */
-    handleEventChoice(element, event) {
+    async handleEventChoice(element, event) {
         const idx = parseInt(element.dataset.choice, 10);
+        
         // Get the current event from the root (this will need to be accessible)
         if (this.root.currentEvent && this.root.currentEvent.choices[idx]) {
             this.root.currentEvent.choices[idx].effect();
-            this.root.afterNode();
+            await this.root.afterNode();
         }
     }
 

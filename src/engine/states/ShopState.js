@@ -1,0 +1,44 @@
+import { GameState } from './GameState.js';
+import { renderShop } from '../../ui/render.js';
+
+/**
+ * ShopState - Handles shop interactions
+ * Preserves exact existing functionality from renderShop()
+ */
+export class ShopState extends GameState {
+    constructor() {
+        super('SHOP');
+    }
+
+    async enter(gameRoot, previousState = null) {
+        // Save when entering shop (preserves existing behavior)
+        gameRoot.save();
+        
+        // Trigger initial render when entering the state
+        await gameRoot.render();
+    }
+
+    async exit(gameRoot, nextState = null) {
+        // Clear shop-specific state when leaving
+        gameRoot.currentShopCards = null;
+        gameRoot.currentShopRelic = null;
+    }
+
+    async render(gameRoot) {
+        renderShop(gameRoot);
+    }
+
+    getSaveData(gameRoot) {
+        return {
+            ...super.getSaveData(gameRoot),
+            nodeId: gameRoot.nodeId,
+            currentShopCards: gameRoot.currentShopCards,
+            currentShopRelic: gameRoot.currentShopRelic
+        };
+    }
+
+    restoreFromSave(gameRoot, saveData) {
+        if (saveData.currentShopCards) gameRoot.currentShopCards = saveData.currentShopCards;
+        if (saveData.currentShopRelic) gameRoot.currentShopRelic = saveData.currentShopRelic;
+    }
+}

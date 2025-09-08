@@ -11,7 +11,6 @@ function playSound(soundFile) {
 }
 
 export function showDamageNumber(damage, target, isPlayer = false) {
-    console.log('this is shown - damage number')
     const targetElement = isPlayer ?
         document.querySelector('.player-battle-zone') :
         document.querySelector('.enemy-battle-zone');
@@ -1125,9 +1124,15 @@ export function renderEvent(root) {
                     icon: "assets/card-art/apple.png",
                     risk: "high",
                     effect: () => {
-                        root.player.hp = Math.min(root.player.maxHp, root.player.hp + 15);
+                        const oldHp = root.player.hp;
+                        
+                        root.player.hp += 15;
+                        if (root.player.hp > root.player.maxHp) {
+                            root.player.maxHp = root.player.hp;
+                        }
+                        
                         root.player.deck.push("sugar_crash");
-                        root.log("Ate cake: +15 HP, added Sugar Crash curse");
+                        root.log(`Ate cake: +15 HP (${oldHp} → ${root.player.hp}), added Sugar Crash curse`);
                     }
                 },
                 {
@@ -1136,7 +1141,10 @@ export function renderEvent(root) {
                     icon: "assets/card-art/heart.png",
                     risk: "low",
                     effect: () => {
-                        root.player.maxHp += 5;
+                        root.player.maxHp += 8;
+                        if (root.player.hp > root.player.maxHp) {
+                          root.player.maxHp = root.player.hp;
+                      }
                         root.log("Small bite: +8 HP");
                     }
                 },
@@ -1245,6 +1253,9 @@ export function renderEvent(root) {
     ];
 
     const event = events[Math.floor(Math.random() * events.length)];
+    
+    // Store the current event so other systems can access it
+    root.currentEvent = event;
 
     root.app.innerHTML = `
     <div class="event-screen">
@@ -1296,13 +1307,7 @@ export function renderEvent(root) {
     </div>
   `;
 
-    root.app.querySelectorAll("[data-choice]").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const idx = parseInt(btn.dataset.choice, 10);
-            event.choices[idx].effect();
-            root.afterNode();
-        });
-    });
+    // Event handlers are managed by InputManager - no need to add them here
 }
 
 export async function renderWin(root) {
@@ -1402,7 +1407,7 @@ export async function renderWin(root) {
       </div>
     </div>
   `;
-    root.app.querySelector("[data-replay]").addEventListener("click", () => root.reset());
+    root.app.querySelector("[data-replay]").addEventListener("click", async () => await root.reset());
 }
 
 export async function renderCodeReviewSelection(root, cards) {
