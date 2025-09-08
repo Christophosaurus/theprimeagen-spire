@@ -41,7 +41,6 @@ const root = {
         if (this.stateMachine) {
             await this.stateMachine.render();
         } else {
-            // Fallback for initialization
             await renderBattle(this);
         }
     },
@@ -57,11 +56,10 @@ const root = {
 
 
     async go(nextId) {
-        this.nodeId = nextId; // Always set nodeId (needed for battle logic)
+        this.nodeId = nextId;
         const node = this.map.nodes.find(n => n.id === nextId);
         if (!node) return;
 
-        // Use state machine for transitions
         if (node.kind === "battle" || node.kind === "elite" || node.kind === "boss") {
             await this.stateMachine.setState('BATTLE');
         } else if (node.kind === "rest") {
@@ -125,18 +123,15 @@ const root = {
         const node = this.map.nodes.find(n => n.id === this.nodeId);
         
         if (node.kind === "boss") {
-            // Check if there's a next act
             const nextAct = this.currentAct === "act1" ? "act2" : null;
             
             if (nextAct && MAPS[nextAct]) {
-                // Advance to next act
                 this.currentAct = nextAct;
                 this.map = MAPS[nextAct];
                 this.nodeId = this.map.nodes.find(n => n.kind === "start").id;
                 this.completedNodes = [];
                 this.log(`Act ${this.currentAct === "act2" ? "II" : "I"} Complete! Advancing to the next challenge...`);
                 
-                // Save Act 2 checkpoint when first reaching it
                 if (nextAct === "act2") {
                     this.saveAct2Checkpoint();
                 }
@@ -144,9 +139,8 @@ const root = {
                 this.save();
                 await this.stateMachine.setState('MAP');
             } else {
-                // Final victory
-                this.save(); // Save progress before clearing on victory
-                this.clearSave(); // Clear save on victory
+                this.save();
+                this.clearSave();
                 await this.stateMachine.setState('VICTORY');
             }
         }
@@ -158,7 +152,7 @@ const root = {
     async onLose() {
 
         this._battleInProgress = false;
-        this.clearSave(); // Clear save on defeat
+        this.clearSave();
         await this.stateMachine.setState('DEFEAT');
     },
 
@@ -356,14 +350,12 @@ const root = {
         localStorage.removeItem('birthday-spire-act2-checkpoint'); // Also clear Act 2 checkpoint
     },
 
-    // Clear any old saves with outdated card IDs
     clearOldSaves() {
         localStorage.removeItem('birthday-spire-save');
         localStorage.removeItem('birthday-spire-act2-checkpoint');
     }
 };
 
-// Initialize State Machine
 try {
     root.stateMachine = new GameStateMachine(root);
     root.stateMachine.registerState('MAP', new MapState());
@@ -412,8 +404,6 @@ async function initializeGame() {
     const screenParam = urlParams.get('screen');
     const dev = urlParams.get('dev');
 
-    // Check if it's ThePrimeagen's birthday yet (September 9, 2025)
-    // Skip countdown if ?dev=true is in URL
     const now = new Date();
     const birthday = new Date('2025-09-09T00:00:00');
 

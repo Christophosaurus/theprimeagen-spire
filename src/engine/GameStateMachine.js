@@ -1,6 +1,5 @@
 /**
  * GameStateMachine - Centralized state management
- * Manages all game states and transitions without adding new functionality
  */
 export class GameStateMachine {
     constructor(gameRoot) {

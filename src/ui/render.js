@@ -946,11 +946,6 @@ export function renderShop(root) {
 
             if (!root.player.gold) root.player.gold = 100;
 
-            // Note: Card purchase events are now handled by InputManager
-
-
-            // Note: Shop purchase events are now handled by InputManager
-            // Note: Leave shop event is handled by InputManager
         });
     });
 }

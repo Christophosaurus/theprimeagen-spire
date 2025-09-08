@@ -11,7 +11,6 @@ export class DefeatState extends GameState {
     }
 
     async enter(gameRoot, previousState = null) {
-        // Trigger initial render when entering the state
         await gameRoot.render();
     }
 

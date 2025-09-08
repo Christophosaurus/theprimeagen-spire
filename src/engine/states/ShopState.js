@@ -11,10 +11,7 @@ export class ShopState extends GameState {
     }
 
     async enter(gameRoot, previousState = null) {
-        // Save when entering shop (preserves existing behavior)
         gameRoot.save();
-        
-        // Trigger initial render when entering the state
         await gameRoot.render();
     }
 

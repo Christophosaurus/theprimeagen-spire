@@ -11,14 +11,9 @@ export class MapState extends GameState {
     }
 
     async enter(gameRoot, previousState = null) {
-        // Clear battle-specific state when entering map
         gameRoot.enemy = null;
         gameRoot._battleInProgress = false;
-        
-        // Save when entering map (preserves existing behavior)
         gameRoot.save();
-        
-        // Trigger initial render when entering the state
         await gameRoot.render();
     }
 

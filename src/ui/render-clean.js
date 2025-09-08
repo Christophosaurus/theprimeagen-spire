@@ -240,11 +240,9 @@ export async function renderBattleClean(root) {
         logContent.scrollTop = logContent.scrollHeight;
     }
 
-    // Note: Event handling is now managed by EventHandler class
-    // No addEventListener calls needed here!
 }
 
-// Utility functions (kept for compatibility)
+// Utility functions
 function getRelicArt(relicId, RELICS = null) {
     if (RELICS && RELICS[relicId]?.art) {
         const imagePath = RELICS[relicId].art;

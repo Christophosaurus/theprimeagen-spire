@@ -12,11 +12,8 @@ export class BattleState extends GameState {
     }
 
     async enter(gameRoot, previousState = null) {
-        // Set battle flag (preserves existing behavior)
         gameRoot._battleInProgress = true;
         
-        // If we don't have an enemy yet, we need to create the battle
-        // This happens when transitioning from map to battle
         if (!gameRoot.enemy) {
             const node = gameRoot.map.nodes.find(n => n.id === gameRoot.nodeId);
             if (node && node.enemy) {

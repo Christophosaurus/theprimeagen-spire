@@ -6,7 +6,7 @@
 export class EventHandler {
     constructor(root) {
         this.root = root;
-        this.listeners = new Map(); // Track active listeners for cleanup
+        this.listeners = new Map();
         this.keyHandlers = new Map(); // Track keyboard shortcuts
         this.globalHandlers = new Set(); // Track global event handlers
         this.currentScreen = null;
@@ -41,18 +41,12 @@ export class EventHandler {
         this.globalHandlers.add('escape');
     }
 
-    /**
-     * Switch to a new screen and cleanup old events
-     */
     switchScreen(screenName) {
         this.cleanup();
         this.currentScreen = screenName;
         this.keyHandlers.clear();
     }
 
-    /**
-     * Add event listener with automatic tracking for cleanup
-     */
     on(element, event, handler, options = {}) {
         if (!element) return;
 
@@ -66,7 +60,6 @@ export class EventHandler {
 
         element.addEventListener(event, wrappedHandler, options);
 
-        // Track for cleanup
         if (!this.listeners.has(element)) {
             this.listeners.set(element, []);
         }
@@ -188,7 +181,6 @@ export class EventHandler {
             this.on(messagesBtn, "click", () => this.showMessagesModal());
         }
 
-        // Reset button
         const resetBtn = this.root.app.querySelector("[data-reset]");
         if (resetBtn) {
             this.on(resetBtn, "click", async () => {

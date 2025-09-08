@@ -14,7 +14,7 @@ import { RestActionCommand } from '../commands/RestActionCommand.js';
 export class InputManager {
     constructor(gameRoot) {
         this.root = gameRoot;
-        this.activeHandlers = new Map(); // Track active event listeners for cleanup
+        this.activeHandlers = new Map();
         this.globalHandlers = new Set(); // Track global document listeners
 
         // Bind methods to preserve 'this' context
@@ -138,7 +138,6 @@ export class InputManager {
             return;
         }
 
-        // Check for direct data attributes on target (fallback)
         if (target.dataset.node !== undefined) {
             this.handleMapNodeClick(target, event);
         }
@@ -393,7 +392,6 @@ export class InputManager {
                 // Execute the callback with selected index
                 this.root._codeReviewCallback(selectedIndex);
 
-                // Clean up state
                 this.root._codeReviewCards = null;
                 this.root._codeReviewCallback = null;
             } catch (error) {
@@ -620,9 +618,6 @@ export class InputManager {
         }
     }
 
-    /**
-     * Clean up all event listeners
-     */
     cleanup() {
         // Remove global listeners
         if (this.globalHandlers.has('keydown')) {
