@@ -191,6 +191,10 @@ export function enemyTurn(ctx) {
         ctx.log(`Enemy AI malfunction! ${e.name} does nothing this turn.`);
         e.intent = { type: "block", value: 0 }; // Safe fallback
     }
+    
+    // Reset block at the end of enemy turn (after damage has been applied)
+    ctx.player.block = 0;
+    
     startPlayerTurn(ctx);
 }
 

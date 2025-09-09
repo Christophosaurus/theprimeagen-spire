@@ -42,7 +42,6 @@ export function draw(player, n = 5, battleCtx = null) {
 export function endTurnDiscard(player) {
     player.discard.push(...player.hand.map(c => c.id));
     player.hand = [];
-    player.block = 0;
     player.energy = player.maxEnergy;
 }
 
