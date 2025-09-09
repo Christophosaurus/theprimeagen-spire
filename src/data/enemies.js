@@ -48,39 +48,26 @@ export const ENEMIES = {
         ai: (turn) => (turn % 2 === 0) ? { type: "debuff", value: 1 } : { type: "attack", value: 12 },
         onDebuff: (ctx) => ctx.applyWeak(ctx.player, 1)
     },
-    teej: {
-        id: "teej", name: "Teej", maxHp: 120,
-        avatar: "assets/avatars/boss_birthday_bug.png", // Demanding/angry character
-        background: "assets/backgrounds/throne room.png", // Repeat background - fitting for boss
-        ai: (turn) => {
-            const cyc = turn % 4;
-            if (cyc === 1) return { type: "debuff", value: 1 };      // Weak player
-            if (cyc === 2) return { type: "attack", value: 18 };     // Big hit
-            if (cyc === 3) return { type: "block", value: 0 };       // Crash → heal
-            return { type: "attack", value: 22 };                  // Burst
-        },
-        onBlock: (ctx) => { ctx.enemy.hp = Math.min(ctx.enemy.maxHp, ctx.enemy.hp + 8); ctx.log("Teej crashes and reboots, healing 8 HP!"); }
-    },
 
     // ACT 2 ENEMIES - Harder versions
     teej: {
         id: "teej", name: "Teej", maxHp: 65,
         avatar: "assets/avatars/teej.jpg",
         background: "assets/backgrounds/castle.png",
-        ai: (turn) => turn % 3 === 0 ? { type: "debuff", value: 2 } : { type: "attack", value: turn % 2 === 0 ? 12 : 14 },
+        ai: (turn) => turn % 3 === 0 ? { type: "debuff", value: 2 } : { type: "attack", value: turn % 2 === 0 ? 7 : 9 },
         onDebuff: (ctx) => ctx.applyWeak(ctx.player, 2)
     },
     begin: {
         id: "begin", name: "Begin", maxHp: 80,
         avatar: "assets/avatars/begin.jpg",
         background: "assets/backgrounds/dead forest.png",
-        ai: (turn) => (turn % 2 === 0) ? { type: "attack", value: 16 } : { type: "block", value: 12 }
+        ai: (turn) => (turn % 2 === 0) ? { type: "attack", value: 7 } : { type: "block", value: 8 }
     },
     adam: {
         id: "adam", name: "Adam Elmore", maxHp: 70,
         avatar: "assets/avatars/adam.jpg",
         background: "assets/backgrounds/terrace.png",
-        ai: (turn) => turn % 4 === 0 ? { type: "debuff", value: 1 } : { type: "attack", value: 13 },
+        ai: (turn) => turn % 4 === 0 ? { type: "debuff", value: 1 } : { type: "attack", value: 8 },
         onDebuff: (ctx) => { 
             ctx.applyVulnerable(ctx.player, 1); 
             const debuffLines = [
@@ -98,8 +85,8 @@ export const ENEMIES = {
         background: "assets/backgrounds/castle.png",
         ai: (turn) => {
             const cyc = turn % 3;
-            if (cyc === 0) return { type: "attack", value: 11 };
-            if (cyc === 1) return { type: "attack", value: 11 };
+            if (cyc === 0) return { type: "attack", value: 9 };
+            if (cyc === 1) return { type: "attack", value: 9 };
             return { type: "debuff", value: 1 };
         },
         onDebuff: (ctx) => { ctx.flags.nextTurnEnergyPenalty = (ctx.flags.nextTurnEnergyPenalty || 0) + 1; ctx.log("David schedules another meeting! Lose 1 energy next turn."); }
@@ -111,9 +98,9 @@ export const ENEMIES = {
         ai: (turn) => {
             const cyc = turn % 5;
             if (cyc === 1) return { type: "debuff", value: 2 };
-            if (cyc === 2) return { type: "attack", value: 25 };
-            if (cyc === 3) return { type: "block", value: 15 };
-            if (cyc === 4) return { type: "attack", value: 30 };
+            if (cyc === 2) return { type: "attack", value: 8 };
+            if (cyc === 3) return { type: "block", value: 8 };
+            if (cyc === 4) return { type: "attack", value: 10 };
             return { type: "attack", value: 20 };
         },
         onDebuff: (ctx) => { 
@@ -144,12 +131,12 @@ export const ENEMIES = {
         background: "assets/backgrounds/throne room.png",
         ai: (turn) => {
             const cyc = turn % 6;
-            if (cyc === 0) return { type: "attack", value: 22 }; // Eloquent attack
+            if (cyc === 0) return { type: "attack", value: 8 }; // Eloquent attack
             if (cyc === 1) return { type: "debuff", value: 2 }; // Artisan command
-            if (cyc === 2) return { type: "attack", value: 28 }; // Forge deployment
-            if (cyc === 3) return { type: "block", value: 25 }; // Laravel shield
+            if (cyc === 2) return { type: "attack", value: 10 }; // Forge deployment
+            if (cyc === 3) return { type: "block", value: 10 }; // Laravel shield
             if (cyc === 4) return { type: "debuff", value: 3 }; // Composer update
-            return { type: "attack", value: 35 }; // Nova dashboard strike
+            return { type: "attack", value: 15 }; // Nova dashboard strike
         },
         onDebuff: (ctx) => {
             if (ctx.enemy.hp < ctx.enemy.maxHp / 2) {
@@ -174,12 +161,12 @@ export const ENEMIES = {
         background: "assets/backgrounds/throne room.png",
         ai: (turn) => {
             const cyc = turn % 6;
-            if (cyc === 0) return { type: "attack", value: 15 }; // Baseline attack
+            if (cyc === 0) return { type: "attack", value: 8 }; // Baseline attack
             if (cyc === 1) return { type: "debuff", value: 2 }; // Debuff turn
-            if (cyc === 2) return { type: "attack", value: 20 }; // Heavy hitting attack
-            if (cyc === 3) return { type: "block", value: 20 }; // Defense + heal
+            if (cyc === 2) return { type: "attack", value: 12 }; // Heavy hitting attack
+            if (cyc === 3) return { type: "block", value: 10 }; // Defense + heal
             if (cyc === 4) return { type: "debuff", value: 1 }; // Follow-up debuff
-            return { type: "attack", value: 30 }; // Another strong attack
+            return { type: "attack", value: 15 }; // Another strong attack
         },
         onDebuff: (ctx) => {
             if (ctx.enemy.hp < ctx.enemy.maxHp / 2) {
@@ -193,7 +180,7 @@ export const ENEMIES = {
             }
         },
         onBlock: (ctx) => {
-            const heal = ctx.enemy.hp < ctx.enemy.maxHp / 3 ? 20 : 15;
+            const heal = ctx.enemy.hp < ctx.enemy.maxHp / 3 ? 8 : 10;
             ctx.enemy.hp = Math.min(ctx.enemy.maxHp, ctx.enemy.hp + heal);
             ctx.log(`DHH refactors the codebase with Ruby on Rails, healing ${heal} HP!`);
         }
