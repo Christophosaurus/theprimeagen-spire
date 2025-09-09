@@ -101,7 +101,7 @@ export const ENEMIES = {
             if (cyc === 2) return { type: "attack", value: 8 };
             if (cyc === 3) return { type: "block", value: 8 };
             if (cyc === 4) return { type: "attack", value: 10 };
-            return { type: "attack", value: 20 };
+            return { type: "attack", value: 10 };
         },
         onDebuff: (ctx) => { 
             ctx.applyWeak(ctx.player, 2); 
