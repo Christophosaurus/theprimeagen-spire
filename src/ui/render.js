@@ -323,7 +323,7 @@ export async function renderMap(root) {
                 const boss = ENEMIES[node.enemy];
                 return `<strong>Boss Battle</strong>\nFight: ${boss?.name || 'Unknown Boss'}\nHP: ${boss?.maxHp || '?'}\nFinal challenge of the act`;
             case 'rest':
-                return '<strong>Rest Site</strong>\nHeal up to 30% max HP\nor upgrade a card';
+                return '<strong>Rest Site</strong>\nHeal up to 20% max HP\nor upgrade a card';
             case 'shop':
                 return '<strong>Shop</strong>\nSpend your hard-earned gold';
             case 'event':
