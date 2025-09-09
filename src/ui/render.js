@@ -1064,7 +1064,15 @@ export function renderRelicSelection(root) {
                     </text>
                   </svg>
                 </div>
-                    <p class="welcome-message">Welcome, Prime, to ThePrimeagen Spire — a tower that rises once a year in your honor. At its base, the climb begins with a choice of relics, each shaping the path ahead. And know this: messages await in your Inbox, ready to be read before the journey begins.</p>
+                    <p class="welcome-message">Welcome, Prime, to the Spire so tall,
+It rises each year to honor it all.
+At the base lie relics, both curious and true,
+Each shaping the path that’s waiting for you.
+
+Choose with care, let the journey unfold,
+For dangers and laughter alike will take hold.
+And before you depart, don’t fail to see,
+Your Inbox holds something prepared secretly.</p>
                 <h1>Choose a Starting Relic</h1>
                 <p>Select one of the following relics to begin your run.</p>
               </div>

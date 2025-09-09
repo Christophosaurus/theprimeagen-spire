@@ -1,18 +1,19 @@
 export const BIRTHDAY_MESSAGES = [
     {
         from: "codegirl007",
-        message: `Happy birthday Prime! Can’t believe I kept this domain from your last birthday and renewed it for another year. No AI singing in this one but it does contain a lot more love and fun (I hope). I know it'd be a lot more normal if I just sent a birthday card or something but... whatever. It's more fun this way.
+        message: `Happy birthday, Prime. 
 
-This game is my way of celebrating you. You've had an extra rough past several months so all the effort put into this was to hopefully lift your spirits and make you laugh. 
+Cheers to another year older. Thanks for everything you do. I've said ooey gooey thank yous to you before so I'll just say this less expressed sentiment. Thanks for the messages you sent me after I left LinkedIn. It was such a rough period of life but you gave me courage to start over. It meant the world to me, probably more than you know. 
 
-I hope to be able to do silly projects like this for years to come. They're fun to do and you deserve it. Enjoy the messages that follow.
+I made this game for you. And while I spent way too much time, blood, sweat and tears (okay no tears), the real specialness comes from the people who sent these messages. A game will be a game but love? Love is not so trivial. 
+
+I hope all of this makes you smile and gives you the warm fuzzies in your heart.
 
 Stephanie (Codegirl)
 
+P.S. Sorry for the bugs (if there are any). I beat the game though so skill issue more likely.
 
-P.S. Sorry for the bugs (if there are any). Also sorry I didn't alphabetize this.
-
-P.P.S. I don't know who wrote Elon Musk message. I highly suspect it was Warren.`
+P.P.S. I don't know who wrote the Elon Musk message. Probably not Elon though.`
     },
     {
         from: "nilpointerr",
