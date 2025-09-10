@@ -54,29 +54,29 @@ export const ENEMIES = {
         id: "teej", name: "Teej", maxHp: 65,
         avatar: "assets/avatars/teej.jpg",
         background: "assets/backgrounds/castle.png",
-        ai: (turn) => turn % 3 === 0 ? { type: "debuff", value: 2 } : { type: "attack", value: turn % 2 === 0 ? 7 : 9 },
+        ai: (turn) => turn % 3 === 0 ? { type: "debuff", value: 2 } : { type: "attack", value: turn % 2 === 0 ? 12 : 14 },
         onDebuff: (ctx) => ctx.applyWeak(ctx.player, 2)
     },
     begin: {
         id: "begin", name: "Begin", maxHp: 80,
         avatar: "assets/avatars/begin.jpg",
         background: "assets/backgrounds/dead forest.png",
-        ai: (turn) => (turn % 2 === 0) ? { type: "attack", value: 7 } : { type: "block", value: 8 }
+        ai: (turn) => (turn % 2 === 0) ? { type: "attack", value: 16 } : { type: "block", value: 12 }
     },
     adam: {
         id: "adam", name: "Adam Elmore", maxHp: 70,
         avatar: "assets/avatars/adam.jpg",
         background: "assets/backgrounds/terrace.png",
         ai: (turn) => turn % 4 === 0 ? { type: "debuff", value: 1 } : { type: "attack", value: 8 },
-        onDebuff: (ctx) => { 
-            ctx.applyVulnerable(ctx.player, 1); 
+        onDebuff: (ctx) => {
+            ctx.applyVulnerable(ctx.player, 1);
             const debuffLines = [
                 "Adam: 'Okay, so here's the thing - your architecture is gonna cost you a fortune.'",
                 "Adam: 'Let me show you why serverless is the way to go here...'",
                 "Adam: 'This is exactly why you need to think about cold starts.'",
                 "Adam: 'I'm gonna walk you through why this approach won't scale.'"
             ];
-            ctx.log(debuffLines[Math.floor(Math.random() * debuffLines.length)]); 
+            ctx.log(debuffLines[Math.floor(Math.random() * debuffLines.length)]);
         }
     },
     david: {
@@ -85,8 +85,8 @@ export const ENEMIES = {
         background: "assets/backgrounds/castle.png",
         ai: (turn) => {
             const cyc = turn % 3;
-            if (cyc === 0) return { type: "attack", value: 9 };
-            if (cyc === 1) return { type: "attack", value: 9 };
+            if (cyc === 0) return { type: "attack", value: 11 };
+            if (cyc === 1) return { type: "attack", value: 11 };
             return { type: "debuff", value: 1 };
         },
         onDebuff: (ctx) => { ctx.flags.nextTurnEnergyPenalty = (ctx.flags.nextTurnEnergyPenalty || 0) + 1; ctx.log("David schedules another meeting! Lose 1 energy next turn."); }
@@ -98,45 +98,45 @@ export const ENEMIES = {
         ai: (turn) => {
             const cyc = turn % 5;
             if (cyc === 1) return { type: "debuff", value: 2 };
-            if (cyc === 2) return { type: "attack", value: 8 };
-            if (cyc === 3) return { type: "block", value: 8 };
-            if (cyc === 4) return { type: "attack", value: 10 };
+            if (cyc === 2) return { type: "attack", value: 25 };
+            if (cyc === 3) return { type: "block", value: 15 };
+            if (cyc === 4) return { type: "attack", value: 30 };
             return { type: "attack", value: 10 };
         },
-        onDebuff: (ctx) => { 
-            ctx.applyWeak(ctx.player, 2); 
-            ctx.applyVulnerable(ctx.player, 1); 
+        onDebuff: (ctx) => {
+            ctx.applyWeak(ctx.player, 2);
+            ctx.applyVulnerable(ctx.player, 1);
             const debuffLines = [
                 "Dax: 'This is actually insane. Like, why would you even do this?'",
                 "Dax: 'Bro, this code is literally unhinged. I'm rewriting everything.'",
                 "Dax: 'I'm not even joking, this is the worst thing I've ever seen.'",
                 "Dax: 'This is so cursed. I can't even look at this anymore.'"
             ];
-            ctx.log(debuffLines[Math.floor(Math.random() * debuffLines.length)]); 
+            ctx.log(debuffLines[Math.floor(Math.random() * debuffLines.length)]);
         },
-        onBlock: (ctx) => { 
-            ctx.enemy.hp = Math.min(ctx.enemy.maxHp, ctx.enemy.hp + 12); 
+        onBlock: (ctx) => {
+            ctx.enemy.hp = Math.min(ctx.enemy.maxHp, ctx.enemy.hp + 12);
             const healLines = [
                 "Dax: 'Actually, let me just rebuild this from scratch in 5 minutes.'",
                 "Dax: 'Hold on, I'm gonna ship a fix real quick.' *heals 12 HP*",
                 "Dax: 'This is actually trivial to fix. Watch this.' *optimizes everything*",
                 "Dax: 'I literally just rewrote your entire stack while you weren't looking.'"
             ];
-            ctx.log(healLines[Math.floor(Math.random() * healLines.length)]); 
+            ctx.log(healLines[Math.floor(Math.random() * healLines.length)]);
         }
     },
     taylor: {
         id: "taylor", name: "Taylor Otwell", maxHp: 200,
-        avatar: "assets/avatars/taylor.jpg", 
+        avatar: "assets/avatars/taylor.jpg",
         background: "assets/backgrounds/throne room.png",
         ai: (turn) => {
             const cyc = turn % 6;
-            if (cyc === 0) return { type: "attack", value: 8 }; // Eloquent attack
+            if (cyc === 0) return { type: "attack", value: 22 }; // Eloquent attack
             if (cyc === 1) return { type: "debuff", value: 2 }; // Artisan command
-            if (cyc === 2) return { type: "attack", value: 10 }; // Forge deployment
-            if (cyc === 3) return { type: "block", value: 10 }; // Laravel shield
+            if (cyc === 2) return { type: "attack", value: 28 }; // Forge deployment
+            if (cyc === 3) return { type: "block", value: 25 }; // Laravel shield
             if (cyc === 4) return { type: "debuff", value: 3 }; // Composer update
-            return { type: "attack", value: 15 }; // Nova dashboard strike
+            return { type: "attack", value: 35 }; // Nova dashboard strike
         },
         onDebuff: (ctx) => {
             if (ctx.enemy.hp < ctx.enemy.maxHp / 2) {
@@ -157,16 +157,16 @@ export const ENEMIES = {
     },
     dhh: {
         id: "dhh", name: "DHH", maxHp: 300,
-        avatar: "assets/avatars/dhh.jpg", 
+        avatar: "assets/avatars/dhh.jpg",
         background: "assets/backgrounds/throne room.png",
         ai: (turn) => {
             const cyc = turn % 6;
-            if (cyc === 0) return { type: "attack", value: 8 }; // Baseline attack
+            if (cyc === 0) return { type: "attack", value: 15 }; // Baseline attack
             if (cyc === 1) return { type: "debuff", value: 2 }; // Debuff turn
-            if (cyc === 2) return { type: "attack", value: 12 }; // Heavy hitting attack
-            if (cyc === 3) return { type: "block", value: 10 }; // Defense + heal
+            if (cyc === 2) return { type: "attack", value: 20 }; // Heavy hitting attack
+            if (cyc === 3) return { type: "block", value: 20 }; // Defense + heal
             if (cyc === 4) return { type: "debuff", value: 1 }; // Follow-up debuff
-            return { type: "attack", value: 15 }; // Another strong attack
+            return { type: "attack", value: 30 }; // Another strong attack
         },
         onDebuff: (ctx) => {
             if (ctx.enemy.hp < ctx.enemy.maxHp / 2) {
