@@ -289,7 +289,12 @@ PS: go back to write some Go thanks`
     {
         from: "denver",
         message: `Happy birthday bossman! You were a good influence for me and many others!`
+    },
+    {
+        from: "mono_cron",
+        message: `Prime, you’ve been an inspiration to say the least. Your videos, streams, and events have provided me with a rare type of joy in times of severe hardship. There aren’t enough ways to express my parasocial gratitude towards you for that. I wish you a steady recovery so you can reclaim your uncontested position as the best Charlie Day impersonator around. Happy Birthday!`
     }
+
 
 ];
 
